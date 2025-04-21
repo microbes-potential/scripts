@@ -338,6 +338,6 @@ def load_style(contents, current):
     return current
 
 if __name__ == '__main__':
-    print("PlasmidFlow is running at http://127.0.0.1:8050")
-    app.run(debug=True, port=8050)
+    print("PlasmidFlow is running on 0.0.0.0:10000 for Render deployment")
+    app.run(host="0.0.0.0", port=10000, debug=True)
 
