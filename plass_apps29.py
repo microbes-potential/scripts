@@ -19,6 +19,8 @@ server = app.server
 app.title = "PlasmidFlow"
 
 app.layout = dbc.Container([
+    html.Footer("© 2024 PlasmidFlow — Developed for microbial data visualization", 
+                style={"textAlign": "center", "marginTop": "30px", "color": "gray", "fontSize": "0.9rem"}),
     html.Div([
         html.Img(src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Plasmid_Replication.svg/512px-Plasmid_Replication.svg.png",
                  style={"height": "80px", "margin-bottom": "10px"}),
