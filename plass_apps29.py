@@ -19,11 +19,16 @@ server = app.server
 app.title = "PlasmidFlow"
 
 app.layout = dbc.Container([
+    html.Div([
+        html.Div([
+        html.Img(src="/assets/father_topcorner.png", style={"height": "50px", "borderRadius": "50%"}),
+        html.Div("M-KHAN", style={"fontSize": "12px", "color": "gray", "marginTop": "2px"})
+    ], style={"position": "absolute", "top": "10px", "right": "10px", "textAlign": "center"})
+    ], style={"position": "relative"}),
     html.Footer("© 2024 PlasmidFlow — Developed for microbial data visualization", 
                 style={"textAlign": "center", "marginTop": "30px", "color": "gray", "fontSize": "0.9rem"}),
     html.Div([
-        html.Img(src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Plasmid_Replication.svg/512px-Plasmid_Replication.svg.png",
-                 style={"height": "80px", "margin-bottom": "10px"}),
+        html.Img(src="/assets/header_banner_final.png", style={"height": "100px", "margin-bottom": "10px"}),
         html.H1("PlasmidFlow: Visualizing Plasmid-Driven Traits Across Environments",
                 className="text-center", style={"color": "#2c3e50"})
     ], style={"textAlign": "center", "marginTop": 30, "backgroundColor": "white"}),
