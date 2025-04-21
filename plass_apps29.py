@@ -25,7 +25,7 @@ app.layout = dbc.Container([
         html.Div("M-KHAN", style={"fontSize": "12px", "color": "gray", "marginTop": "2px"})
     ], style={"position": "absolute", "top": "10px", "right": "10px", "textAlign": "center"})
     ], style={"position": "relative"}),
-    html.Footer("© 2024 PlasmidFlow — Developed for microbial data visualization", 
+    html.Footer("© 2025 PlasmidFlow — Developed for microbial data visualization", 
                 style={"textAlign": "center", "marginTop": "30px", "color": "gray", "fontSize": "0.9rem"}),
     html.Div([
         html.Img(src="/assets/header_banner_final.png", style={"height": "100px", "margin-bottom": "10px"}),
@@ -87,10 +87,10 @@ app.layout = dbc.Container([
     html.Div([
         html.H4("🎨 Graph Customization"),
         html.Label("Node Color (name):"),
-        dcc.Input(id='style-node-color', type='text', value="dodgerblue", style={"width": "100%"}),
+        dcc.Input(id='style-node-color', type='text', value="red", style={"width": "100%"}),
 
         html.Label("Edge Color (name):"),
-        dcc.Input(id='style-edge-color', type='text', value="gray", style={"width": "100%"}),
+        dcc.Input(id='style-edge-color', type='text', value="skyblue", style={"width": "100%"}),
 
         html.Label("Node Size:"),
         dcc.Slider(id='style-node-size', min=5, max=30, value=12, step=1),
@@ -259,17 +259,26 @@ def update_output(contents):
     Input('heatmap-colorscale', 'value')
 )
 def render_content(tab, style, data, selected_env, sankey_traits, network_traits, heatmap_traits, scale):
-    if not data:
-        return html.Div("Please upload a dataset.")
-    df = pd.DataFrame(data)
-    if selected_env:
-        df = df[df['Environment'].str.contains(selected_env.strip(), case=False, na=False)]
-    if tab == 'sankey':
-        return dcc.Graph(id='graph', figure=create_sankey(filter_by_traits(df.copy(), sankey_traits), style))
-    elif tab == 'network':
-        return dcc.Graph(id='graph', figure=create_network(filter_by_traits(df.copy(), network_traits), style))
-    elif tab == 'heatmap':
-        return dcc.Graph(id='graph', figure=create_heatmap(filter_by_traits(df.copy(), heatmap_traits), scale, style))
+    updated_style = style.copy()
+    # Apply special defaults for sankey/network if not customized yet
+    if style['node_color'] == 'dodgerblue' and style['edge_color'] == 'gray':
+        if tab in ['sankey', 'network']:
+            updated_style['node_color'] = 'red'
+            updated_style['edge_color'] = 'skyblue'
+    try:
+        if not data:
+            return html.Div("Please upload a dataset.")
+        df = pd.DataFrame(data)
+        if selected_env:
+            df = df[df['Environment'].str.contains(selected_env.strip(), case=False, na=False)]
+        if tab == 'sankey':
+            return dcc.Graph(id='graph', figure=create_sankey(filter_by_traits(df.copy(), sankey_traits), updated_style))
+        elif tab == 'network':
+            return dcc.Graph(id='graph', figure=create_network(filter_by_traits(df.copy(), network_traits), updated_style))
+        elif tab == 'heatmap':
+            return dcc.Graph(id='graph', figure=create_heatmap(filter_by_traits(df.copy(), heatmap_traits), scale, updated_style))
+    except Exception as e:
+        return html.Div(f"❌ Error rendering content: {str(e)}")
 
 @app.callback(
     Output('custom-style', 'data'),
