@@ -1,0 +1,6 @@
+Plasmid_ID,Host_Genome,Environment,Replicon_Type,ARGs,Virulence,T4SS,MGEs
+p1,G1,Cheese,IncF,blaTEM,Yes,Yes,IS1
+p2,G2,Milk,IncI,No,No,Yes,No
+p3,G3,Bedding,IncP,tetA,No,No,IS3
+p4,G2,Soil,IncQ,No,Yes,Yes,No
+p5,G4,Milk,IncF,aac(6'),No,No,IS26
