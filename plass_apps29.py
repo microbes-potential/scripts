@@ -33,8 +33,24 @@ app.layout = dbc.Container([
                 className="text-center", style={"color": "#2c3e50"})
     ], style={"textAlign": "center", "marginTop": 30, "backgroundColor": "white"}),
 
-    html.Div([
-        html.H4("📂 Upload Your Plasmid Dataset", style={"color": "#2980b9"}),
+   html.Div([
+    
+	html.A("📘 Download User Guide (DOCX)",
+           href="/assets/PlasmidFlow_User_Guide.docx",
+           download="PlasmidFlow_User_Guide.pdf",
+           target="_blank",
+           style={
+               "float": "right",
+               "color": "#2980b9",
+               "fontWeight": "bold",
+               "textDecoration": "none",
+               "marginBottom": "10px"
+           })
+	], style={"width": "100%", "textAlign": "right", "marginTop": "10px"}),
+
+   	html.Div([
+        
+	html.H4("📂 Upload Your Plasmid Dataset", style={"color": "#2980b9"}),
         html.A("📥 Download Example CSV", href="/assets/plasmidflow_example_input.csv", download="plasmidflow_example_input.csv", target="_blank", style={"display": "block", "marginBottom": "10px", "color": "#16a085"}),
         dcc.Upload(
             id='upload-data',
